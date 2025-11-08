@@ -23,8 +23,12 @@
       <%= form.text_area :content, class: "border border-gray-300 rounded w-full p-2 focus:ring-2 focus:ring-blue-400 focus:outline-none", rows: 8 %>
     </div>
 
-    <div class="text-right">
-      <%= form.submit "作成", class: "bg-blue-500 text-white font-semibold px-6 py-2 rounded hover:bg-blue-600 transition-colors" %>
+    <div class="flex justify-between items-center">
+      <%= form.submit "作成",
+                      class: "bg-blue-500 text-white font-semibold px-6 py-2 rounded hover:bg-blue-600 transition-colors" %>
+      <%= link_to "戻る",
+                  diary_entries_path,
+                  class: "bg-gray-200 text-gray-700 font-semibold px-6 py-2 rounded hover:bg-gray-300 transition-colors" %>
     </div>
   <% end %>
 </div>
