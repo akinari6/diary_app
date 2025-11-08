@@ -1,0 +1,30 @@
+<div class="max-w-2xl mx-auto mt-10 bg-white shadow-md rounded-lg p-8">
+  <h1 class="text-2xl font-bold mb-6 border-b pb-2">日記の作成</h1>
+
+  <% if @entry.errors.any? %>
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
+      <h2 class="font-semibold mb-2">入力内容に誤りがあります：</h2>
+      <ul class="list-disc list-inside">
+        <% @entry.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= form_with model: @entry do |form| %>
+    <div class="mb-5">
+      <%= form.label :title, "題名", class: "block font-semibold mb-1" %>
+      <%= form.text_field :title, class: "border border-gray-300 rounded w-full p-2 focus:ring-2 focus:ring-blue-400 focus:outline-none" %>
+    </div>
+
+    <div class="mb-6">
+      <%= form.label :content, "日記", class: "block font-semibold mb-1" %>
+      <%= form.text_area :content, class: "border border-gray-300 rounded w-full p-2 focus:ring-2 focus:ring-blue-400 focus:outline-none", rows: 8 %>
+    </div>
+
+    <div class="text-right">
+      <%= form.submit "作成", class: "bg-blue-500 text-white font-semibold px-6 py-2 rounded hover:bg-blue-600 transition-colors" %>
+    </div>
+  <% end %>
+</div>
