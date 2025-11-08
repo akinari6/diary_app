@@ -21,7 +21,7 @@
   </div>
 
   <div class="flex justify-between items-center">
-    <%= form.submit "作成",
+    <%= form.submit @entry.persisted? ? "更新" : "作成",
                     class: "bg-blue-500 text-white font-semibold px-6 py-2 rounded hover:bg-blue-600 transition-colors" %>
     <%= link_to "戻る",
                 diary_entries_path,
