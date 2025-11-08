@@ -9,13 +9,18 @@
     <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       <% @diary_entries.each do |entry| %>
         <div class="bg-white shadow-md rounded-lg p-4 hover:shadow-lg transition-shadow">
-          <h2 class="text-xl font-semibold mb-2 truncate"><%= entry.title %></h2>
+          <h2 class="text-xl font-semibold mb-2 truncate"><%= link_to entry.title, diary_entry_path(entry) %></h2>
           <p class="text-gray-700 text-sm mb-3">
             <%= truncate(entry.content, length: 60) %>
           </p>
           <div class="flex justify-between items-center text-sm text-gray-500">
             <span><%= entry.created_at.strftime("%Y/%m/%d") %></span>
-            <%= link_to "詳細を見る", diary_entry_path(entry),
+            <%= link_to "削除する",
+                        diary_entry_path(entry),
+                        data: {
+                          turbo_method: :delete,
+                          turbo_confirm: "本当に削除しますか？"
+                        },
                         class: "text-blue-500 hover:underline" %>
           </div>
         </div>
