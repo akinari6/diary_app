@@ -8,7 +8,8 @@ class CommentsController < ApplicationController
     if @comment.save
       redirect_to @diary_entry, notice: "コメントを投稿しました。"
     else
-      redirect_to @diary_entry, alert: "コメントを入力してください。"
+      @diary_entry = DiaryEntry.eager_load(:comments).find(params[:diary_entry_id])
+      render 'diary_entries/show', status: :unprocessable_entity
     end
   end
 

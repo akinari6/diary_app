@@ -5,7 +5,8 @@ class DiaryEntriesController < ApplicationController
   end
 
   def show
-    @diary_entry = Current.user.diary_entries.includes(:comments).find(params[:id])
+    @diary_entry = Current.user.diary_entries.eager_load(:comments).find(params[:id])
+    @comment = Comment.new
   end
 
   def new
