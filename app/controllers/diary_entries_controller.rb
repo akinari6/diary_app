@@ -5,16 +5,17 @@ class DiaryEntriesController < ApplicationController
   end
 
   def show
+    @diary_entry = Current.user.diary_entries.includes(:comments).find(params[:id])
   end
 
   def new
-    @entry = Current.user.diary_entries.new
+    @diary_entry = Current.user.diary_entries.new
   end
 
   def create
-    @entry = Current.user.diary_entries.new(diary_params)
-    if @entry.save
-      redirect_to @entry, notice: "日記を作成しました。"
+    @diary_entry = Current.user.diary_entries.new(diary_params)
+    if @diary_entry.save
+      redirect_to @diary_entry, notice: "日記を作成しました。"
     else
       render :new, status: :unprocessable_entity
     end
@@ -24,22 +25,22 @@ class DiaryEntriesController < ApplicationController
   end
 
   def update
-    if @entry.update(diary_params)
-      redirect_to @entry, notice: "日記を更新しました。"
+    if @diary_entry.update(diary_params)
+      redirect_to @diary_entry, notice: "日記を更新しました。"
     else
       render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @entry.destroy
+    @diary_entry.destroy
     redirect_to diary_entries_path, notice: "日記を削除しました。", status: :see_other
   end
 
   private
 
   def set_diary
-    @entry = Current.user.diary_entries.find(params[:id])
+    @diary_entry = Current.user.diary_entries.find(params[:id])
   end
 
   def diary_params
