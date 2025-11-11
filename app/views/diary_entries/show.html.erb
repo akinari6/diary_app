@@ -23,18 +23,9 @@
     <h2 class="text-lg font-semibold text-gray-700 mb-3">コメント一覧</h2>
 
     <% if @diary_entry.comments.any? %>
-      <div class="space-y-3">
+      <div id="comments" class="space-y-3">
         <% @diary_entry.comments.each do |comment| %>
-          <div class="bg-gray-50 border border-gray-200 rounded p-3 flex justify-between items-start">
-            <p class="text-gray-800"><%= comment.content %></p>
-
-            <% if comment.user == Current.user %>
-              <%= link_to "削除",
-                          diary_entry_comment_path(@diary_entry, comment),
-                          data: { turbo_method: :delete, turbo_confirm: "このコメントを削除しますか？" },
-                          class: "text-sm text-red-500 hover:underline" %>
-            <% end %>
-          </div>
+          <%= render comment %>
         <% end %>
       </div>
     <% else %>

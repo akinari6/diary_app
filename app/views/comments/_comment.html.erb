@@ -1,0 +1,9 @@
+<div class="bg-gray-50 border border-gray-200 rounded p-3 flex justify-between items-start">
+  <p class="text-gray-800"><%= comment.content %></p>
+  <% if comment.user == Current.user %>
+    <%= link_to "削除",
+                [comment.diary_entry, comment],
+                data: { turbo_method: :delete, turbo_confirm: "このコメントを削除しますか？" },
+                class: "text-sm text-red-500 hover:underline" %>
+  <% end %>
+</div>

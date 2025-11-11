@@ -6,10 +6,15 @@ class CommentsController < ApplicationController
     @comment.user = Current.user
 
     if @comment.save
-      redirect_to @diary_entry, notice: "コメントを投稿しました。"
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to @diary_entry, notice: "コメントを投稿しました。" }
+      end
     else
-      @diary_entry = DiaryEntry.eager_load(:comments).find(params[:diary_entry_id])
-      render 'diary_entries/show', status: :unprocessable_entity
+      format.html do
+        @diary_entry = DiaryEntry.includes(:comments).find(params[:diary_entry_id])
+        render "diary_entries/show", status: :unprocessable_entity
+      end
     end
   end
 
