@@ -11,9 +11,11 @@ class CommentsController < ApplicationController
         format.html { redirect_to @diary_entry, notice: "コメントを投稿しました。" }
       end
     else
-      format.html do
-        @diary_entry = DiaryEntry.includes(:comments).find(params[:diary_entry_id])
-        render "diary_entries/show", status: :unprocessable_entity
+      respond_to do |format|
+        format.html do
+          @diary_entry = DiaryEntry.includes(:comments).find(params[:diary_entry_id])
+          render "diary_entries/show", status: :unprocessable_entity
+        end
       end
     end
   end
@@ -27,7 +29,7 @@ class CommentsController < ApplicationController
         format.turbo_stream
       end
     else
-      redirect_to @diary_entry, alert: "他人のコメントは削除できません。", status: :not_found
+      redirect_to @diary_entry, alert: "他人のコメントは削除できません。", status: :forbidden
     end
   end
 
