@@ -1,4 +1,4 @@
-<div class="bg-gray-50 border border-gray-200 rounded p-3 flex justify-between items-start">
+<div id="<%= dom_id(comment) %>" class="bg-gray-50 border border-gray-200 rounded p-3 flex justify-between items-start">
   <p class="text-gray-800"><%= comment.content %></p>
   <% if comment.user == Current.user %>
     <%= link_to "削除",

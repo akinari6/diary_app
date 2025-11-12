@@ -22,7 +22,10 @@ class CommentsController < ApplicationController
     @comment = @diary_entry.comments.find(params[:id])
     if @comment.user == Current.user
       @comment.destroy
-      redirect_to @diary_entry, notice: "コメントを削除しました。", status: :see_other
+      respond_to do |format|
+        format.html { redirect_to @diary_entry, notice: "コメントを削除しました。", status: :see_other }
+        format.turbo_stream
+      end
     else
       redirect_to @diary_entry, alert: "他人のコメントは削除できません。", status: :not_found
     end
