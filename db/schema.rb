@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_05_160551) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_09_144805) do
+  create_table "comments", force: :cascade do |t|
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.integer "diary_entry_id", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["diary_entry_id"], name: "index_comments_on_diary_entry_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
   create_table "diary_entries", force: :cascade do |t|
     t.text "content"
     t.datetime "created_at", null: false
@@ -37,6 +47,8 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_05_160551) do
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
   end
 
+  add_foreign_key "comments", "diary_entries"
+  add_foreign_key "comments", "users"
   add_foreign_key "diary_entries", "users"
   add_foreign_key "sessions", "users"
 end

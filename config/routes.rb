@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :diary_entries
+  resources :diary_entries do
+    resources :comments, only: [ :create, :destroy ]
+  end
   resources :users, only: [ :new, :create, :index, :show, :edit, :update ]
   resource :session
   resources :passwords, param: :token

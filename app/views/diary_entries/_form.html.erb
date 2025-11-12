@@ -1,15 +1,15 @@
-<% if @entry.errors.any? %>
+<% if @diary_entry.errors.any? %>
   <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
     <h2 class="font-semibold mb-2">入力内容に誤りがあります：</h2>
     <ul class="list-disc list-inside">
-      <% @entry.errors.full_messages.each do |msg| %>
+      <% @diary_entry.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
     </ul>
   </div>
 <% end %>
 
-<%= form_with model: @entry do |form| %>
+<%= form_with model: @diary_entry do |form| %>
   <div class="mb-5">
     <%= form.label :title, "題名", class: "block font-semibold mb-1" %>
     <%= form.text_field :title, class: "border border-gray-300 rounded w-full p-2 focus:ring-2 focus:ring-blue-400 focus:outline-none" %>
@@ -21,11 +21,11 @@
   </div>
 
   <div class="flex justify-between items-center">
-    <%= form.submit @entry.persisted? ? "更新" : "作成",
+    <%= form.submit @diary_entry.persisted? ? "更新" : "作成",
                     class: "bg-blue-500 text-white font-semibold px-6 py-2 rounded hover:bg-blue-600 transition-colors" %>
-    <% if @entry.persisted? %>
+    <% if @diary_entry.persisted? %>
       <%= link_to "詳細へ戻る",
-                  diary_entry_path(@entry),
+                  diary_entry_path(@diary_entry),
                   class: "bg-gray-200 text-gray-700 font-semibold px-6 py-2 rounded hover:bg-gray-300 transition-colors" %>
     <% end %>
     <%= link_to "一覧へ戻る",
