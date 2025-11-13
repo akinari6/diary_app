@@ -1,7 +1,7 @@
 class DiaryEntriesController < ApplicationController
   before_action :set_diary, only: [:show, :edit, :update, :destroy]
   def index
-    @diary_entries = Current.user.diary_entries.order(created_at: :desc)
+    @diary_entries = DiaryEntry.eager_load(:user, :comments).order(created_at: :desc)
   end
 
   def show
