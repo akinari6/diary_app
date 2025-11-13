@@ -13,6 +13,11 @@
           <p class="text-gray-700 text-sm mb-3">
             <%= truncate(entry.content, length: 60) %>
           </p>
+          <p class="text-left text-sm text-gray-500"><%= entry.user.name %></p>
+          <div class="flex space-x-4 text-sm text-gray-500 ">
+            <span>コメント数</span>
+            <span><%= entry.comments.size %></span>
+          </div>
           <div class="flex justify-between items-center text-sm text-gray-500">
             <span><%= entry.created_at.strftime("%Y/%m/%d") %></span>
             <%= link_to "削除する",
