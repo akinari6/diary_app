@@ -1,11 +1,11 @@
 class DiaryEntriesController < ApplicationController
-  before_action :set_diary, only: [:show, :edit, :update, :destroy]
+  before_action :set_diary, only: [:edit, :update, :destroy]
   def index
-    @diary_entries = DiaryEntry.eager_load(:user, :comments).order(created_at: :desc)
+    @pagy, @diary_entries = pagy(:offset, Current.user.diary_entries.eager_load(:user, :comments).order(created_at: :desc), limit: 9)
   end
 
   def show
-    @diary_entry = Current.user.diary_entries.eager_load(:comments).find(params[:id])
+    @diary_entry = Current.user.diary_entries.eager_load(:user, comments: :user).find(params[:id])
     @comment = Comment.new
   end
 
