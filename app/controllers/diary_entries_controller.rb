@@ -45,6 +45,6 @@ class DiaryEntriesController < ApplicationController
   end
 
   def diary_params
-    params.require(:diary_entry).permit(:title, :content)
+    params.require(:diary_entry).permit(:title, :content, tag_ids: [])
   end
 end

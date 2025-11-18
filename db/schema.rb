@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_13_125652) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_18_134106) do
   create_table "comments", force: :cascade do |t|
     t.text "content"
     t.datetime "created_at", null: false
@@ -30,6 +30,15 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_13_125652) do
     t.index ["user_id"], name: "index_diary_entries_on_user_id"
   end
 
+  create_table "diary_tags", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "diary_entry_id", null: false
+    t.integer "tag_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["diary_entry_id"], name: "index_diary_tags_on_diary_entry_id"
+    t.index ["tag_id"], name: "index_diary_tags_on_tag_id"
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "ip_address"
@@ -37,6 +46,12 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_13_125652) do
     t.string "user_agent"
     t.integer "user_id", null: false
     t.index ["user_id"], name: "index_sessions_on_user_id"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name"
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -51,5 +66,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_13_125652) do
   add_foreign_key "comments", "diary_entries"
   add_foreign_key "comments", "users"
   add_foreign_key "diary_entries", "users"
+  add_foreign_key "diary_tags", "diary_entries"
+  add_foreign_key "diary_tags", "tags"
   add_foreign_key "sessions", "users"
 end
