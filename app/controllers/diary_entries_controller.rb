@@ -1,7 +1,13 @@
 class DiaryEntriesController < ApplicationController
   before_action :set_diary, only: [:edit, :update, :destroy]
   def index
-    @pagy, @diary_entries = pagy(:offset, Current.user.diary_entries.eager_load(:user, :comments).order(created_at: :desc), limit: 9)
+    if params[:tag_id].present?
+      diary_entries = Current.user.diary_entries.joins(:tags).where(tags: { id: params[:tag_id] })
+    else
+      diary_entries = Current.user.diary_entries
+    end
+    @pagy, @diary_entries = pagy(:offset, diary_entries.eager_load(:user, :comments).order(created_at: :desc), limit: 9)
+    @tags = Tag.all
   end
 
   def show
@@ -45,6 +51,6 @@ class DiaryEntriesController < ApplicationController
   end
 
   def diary_params
-    params.require(:diary_entry).permit(:title, :content)
+    params.require(:diary_entry).permit(:title, :content, tag_ids: [])
   end
 end

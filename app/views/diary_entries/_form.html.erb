@@ -20,6 +20,13 @@
     <%= form.text_area :content, class: "border border-gray-300 rounded w-full p-2 focus:ring-2 focus:ring-blue-400 focus:outline-none", rows: 8 %>
   </div>
 
+  <div class="mb-6">
+    <%= form.collection_check_boxes :tag_ids, Tag.all, :id, :name do |tag| %>
+      <%= tag.check_box %>
+      <%= tag.label %>
+    <% end %>
+  </div>
+
   <div class="flex justify-between items-center">
     <%= form.submit @diary_entry.persisted? ? "更新" : "作成",
                     class: "bg-blue-500 text-white font-semibold px-6 py-2 rounded hover:bg-blue-600 transition-colors" %>
