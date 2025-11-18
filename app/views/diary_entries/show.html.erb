@@ -16,6 +16,17 @@
       <dt class="font-semibold text-gray-700 mb-1">内容</dt>
       <dd class="border border-gray-300 rounded w-full p-2 bg-gray-50 whitespace-pre-line"><%= @diary_entry.content %></dd>
     </div>
+
+    <div>
+      <dt class="font-semibold text-gray-700 mb-2">タグ</dt>
+      <dd class="flex flex-wrap gap-2">
+        <% @diary_entry.tags.each do |tag| %>
+          <span class="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+            <%= tag.name %>
+          </span>
+        <% end %>
+      </dd>
+    </div>
   </dl>
 
   <!-- コメント一覧 -->
