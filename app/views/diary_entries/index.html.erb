@@ -5,6 +5,16 @@
                 class: "bg-blue-500 text-white font-semibold px-4 py-2 rounded hover:bg-blue-600 transition-colors" %>
   </div>
 
+  <div class="flex gap-2 mb-4">
+    <% @tags.each do |tag| %>
+      <% is_active = params[:tag_id]&.to_i == tag.id %>
+      <%= link_to tag.name,
+                  is_active ? diary_entries_path : diary_entries_path(tag_id: tag.id),
+                  class: "px-3 py-1 rounded-full text-sm font-medium transition-colors #{is_active ? 'bg-blue-500 text-white' : 'bg-blue-100 text-blue-800 hover:bg-blue'}"
+                  %>
+    <% end %>
+  </div>
+
   <% if @diary_entries.any? %>
     <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       <% @diary_entries.each do |entry| %>
